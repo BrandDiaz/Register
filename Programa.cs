@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 
 class Programa{
@@ -75,11 +76,83 @@ class Programa{
 		                  		Console.Write("Ingrese la Cedula: ");
 		                  		user.cedula = Console.ReadLine();
 		                  		Console.Write("Ingrese el Nombre: ");
-		                  		user.nombre = Console.ReadLine();
+								user.nombre = Console.ReadLine();
+
+								while(!Regex.IsMatch(user.nombre, @"^[a-zA-Z]+$")){
+
+									Console.Write("Ingrese solo letras: ");
+									user.nombre = Console.ReadLine();
+
+								}
+
 		                  		Console.Write("Ingrese el Apellido: ");
-		                  		user.apellido = Console.ReadLine();	            
+		                  		user.apellido = Console.ReadLine();
+
+								while(!Regex.IsMatch(user.apellido, @"^[a-zA-Z]+$")){
+
+									Console.Write("Ingrese solo letras: ");
+									user.apellido = Console.ReadLine();
+
+								}
+
 						  		Console.Write("Ingrese su Edad: ");
-		                  		int.TryParse(Console.ReadLine(), out user.edad);
+								while(!int.TryParse(Console.ReadLine(), out user.edad)){
+
+									Console.Write("Ingrese solo numeros");
+
+								}
+
+								Console.Write("Ingrese sus ahorros: ");
+								while(!double.TryParse(Console.ReadLine(), out user.ahorros)){
+
+									Console.Write("Ingrese solo numeros");
+
+								}
+
+								Console.Write("Ingrese su contraseña: ");
+								
+								ConsoleKeyInfo key;
+								do
+								{
+									key = Console.ReadKey(true);
+
+									if(Char.IsNumber(key.KeyChar)){
+
+										Console.Write("*");
+
+									}
+									user.password += key.KeyChar;
+
+
+								}while(key.Key != ConsoleKey.Enter);
+
+								int confirm_edad = 0;
+								Console.Write("COnfirme su Contraseña: ");
+
+								do
+								{
+									key = Console.ReadKey(true);
+
+									if(Char.IsNumber(key.KeyChar)){
+
+										Console.Write("*");
+
+									}
+									confirm_edad += key.KeyChar;
+
+
+								}while(key.Key != ConsoleKey.Enter);
+
+								if(user.password != confirm_edad){
+
+									Console.WriteLine("Las contraseñas no coinciden, favor registra nuevamente");
+
+								}else{
+
+									Console.WriteLine("Las contraseñas coinciden, felicidades");
+
+								}
+								
 		                  		mU.agregarUsuarios(user);
 
 						  		Console.WriteLine();
@@ -101,13 +174,14 @@ class Programa{
 						
 							if(mU.totalUsuarios() > 0)
 						    {
-						     Console.Clear();
-			                 Console.WriteLine("Usuarios agregados");
-			                 All = mU.obtenerUsuarios(); 
-						     Console.WriteLine();
+						     	Console.Clear();
+			                 	Console.WriteLine("Usuarios agregados");
+			                 	All = mU.obtenerUsuarios(); 
+						     	Console.WriteLine();
 						     
-			                 int n1 = 1;
-			                 foreach(Usuario users in All){
+			                 	int n1 = 1;
+			                 	foreach(Usuario users in All)
+							 	{
 			                
 			                
 			                     Console.WriteLine(n1+"-"+users.cedula);
@@ -166,15 +240,15 @@ class Programa{
 						
 						if(mU.totalUsuarios() > 0)
 						{
-						 Console.Clear();
-			             Console.WriteLine("Usuarios agregados");
-			             All = mU.obtenerUsuarios(); 
-						 Console.WriteLine();
-						 
-			             int n1 = 1;
-			             foreach(Usuario users in All){
-			          
-			          
+						 	Console.Clear();
+			             	Console.WriteLine("Usuarios agregados");
+			             	All = mU.obtenerUsuarios(); 
+						 	Console.WriteLine();
+						 	
+			             	int n1 = 1;
+			             	foreach(Usuario users in All)
+							{
+
 			                 Console.WriteLine(n1+"-"+users.cedula);
 							 n1++;
 			          

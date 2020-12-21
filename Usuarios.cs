@@ -9,6 +9,8 @@ public class Usuario{
 	public string nombre;
 	public string apellido;
 	public int edad;
+	public double ahorros;
+	public int password;
 		
 }
 
